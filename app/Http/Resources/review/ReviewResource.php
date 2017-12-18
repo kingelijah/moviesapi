@@ -16,6 +16,7 @@ class ReviewResource extends Resource
     {
          return 
         [
+            'id' => $this->id,
             'viewer' => $this->viewer,
             'body' => $this->review,
             'star' => $this->star,

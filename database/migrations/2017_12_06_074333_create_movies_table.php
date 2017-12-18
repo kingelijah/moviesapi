@@ -19,6 +19,7 @@ class CreateMoviesTable extends Migration
             $table->text('description');
             $table->string('producer');
             $table->string('genre');
+            $table->integer('user_id')->unsigned()->index();
             $table->string('country');
             $table->timestamps();
         });

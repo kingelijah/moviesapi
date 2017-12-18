@@ -11,5 +11,9 @@ $factory->define(App\model\movie::class, function (Faker $faker) {
         'producer' => $faker->name,
         'genre' => $faker->word,
         'country' => $faker->word,
+        'user_id' => function(){
+
+        	return App\User::all()->random();
+        },
     ];
 });

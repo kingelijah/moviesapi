@@ -7,6 +7,9 @@ use App\Model\movie;
 
 class review extends Model
 {
+
+	protected $fillable = ['review','star','viewer'];
+	
     public function movie()
    {
 

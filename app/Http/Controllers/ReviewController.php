@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\model\review;
 use App\model\movie;
+use App\Http\Requests\ReviewRequest;
 use App\Http\Resources\review\ReviewResource;
 use App\Http\Resources\review\ReviewCollection;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
@@ -36,9 +38,16 @@ class ReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ReviewRequest $request,movie $movie)
     {
-        //
+        $review = new Review($request->all());
+        $movie->reviews()->save($review);
+
+         return response([
+          
+          'data' => new ReviewResource($review)
+
+            ],Response::HTTP_CREATED);
     }
 
     /**
@@ -70,9 +79,15 @@ class ReviewController extends Controller
      * @param  \App\model\review  $review
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, review $review)
+    public function update(Request $request,movie $movie, review $review)
     {
-        //
+        $review->update($request->all());
+
+         return response([
+          
+          'data' => new ReviewResource($review)
+
+            ],Response::HTTP_CREATED);
     }
 
     /**
@@ -81,8 +96,10 @@ class ReviewController extends Controller
      * @param  \App\model\review  $review
      * @return \Illuminate\Http\Response
      */
-    public function destroy(review $review)
+    public function destroy(movie $movie,review $review)
     {
-        //
+        $review->delete();
+
+         return response(null,Response::HTTP_NO_CONTENT);
     }
 }
